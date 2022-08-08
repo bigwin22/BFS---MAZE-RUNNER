@@ -8,6 +8,8 @@ int x_que[10000];
 int y_que[10000];
 int qi = 0, qj = 0;//i: input, j: output
 
+int hx, hy;//끝 점
+
 void que_input(int cnt, int x, int y)
 {
     cnt_que[qi] = cnt;
@@ -42,7 +44,7 @@ int checking(int x, int y)
        return 0;
     if (arr[x][y] == '#')
         return 0;
-    if (x == n-1 && y == m-1)
+    if (x == hx && y == hy)
         return 2;
     return 1;
 }
@@ -77,7 +79,6 @@ int BFS(int cnt, int x, int y)
 int main()
 {
     int x, y;//처음 시작점
-    int hx, hy;//끝 점
 
     scanf("%d %d", &n, &m);
     for (int i = 0; i < n; i++)
