@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 int n, m;
 char arr[10000][10000];
@@ -15,11 +14,6 @@ int hx, hy;//끝 점
 
 void que_input(int cnt, int x, int y)
 {
-    if (cnt_que[qi] != -1)
-    {
-        printf("error\n");
-        exit(0);
-    }
     cnt_que[qi] = cnt;
     x_que[qi] = x;
     y_que[qi] = y;
