@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int n, m;
 char arr[10000][10000];
+
+int visited[10000][10000];
 
 int cnt_que[10000];
 int x_que[10000];
@@ -12,6 +15,11 @@ int hx, hy;//끝 점
 
 void que_input(int cnt, int x, int y)
 {
+    if (cnt_que[qi] != -1)
+    {
+        printf("error\n");
+        exit(0);
+    }
     cnt_que[qi] = cnt;
     x_que[qi] = x;
     y_que[qi] = y;
@@ -44,6 +52,8 @@ int checking(int x, int y)
        return 0;
     if (arr[x][y] == '#')
         return 0;
+    if (visited[x][y] == 1)
+        return 0;
     if (x == hx && y == hy)
         return 2;
     return 1;
@@ -52,7 +62,7 @@ int checking(int x, int y)
 int BFS(int cnt, int x, int y)
 {
     int mx[5] = {-1,1,0,0};
-    int my[5] = {0,0,-1,1};
+    int my[5] = {0,0,-1,1};//상하좌우
 
     for (int i = 0; i < 4; i++)
     {
@@ -60,6 +70,7 @@ int BFS(int cnt, int x, int y)
         if (check == 1)
         {
             que_input(cnt+1, x+mx[i], y+my[i]);
+            visited[x+mx[i]][y+my[i]] = 1;
         }
         else if (check == 2)
         {
@@ -79,6 +90,13 @@ int BFS(int cnt, int x, int y)
 int main()
 {
     int x, y;//처음 시작점
+
+    for (int i = 0; i < 10000; i++)
+    {
+        cnt_que[i] = -1;
+        x_que[i] = -1;
+        y_que[i] = -1;
+    }
 
     scanf("%d %d", &n, &m);
     for (int i = 0; i < n; i++)
@@ -100,6 +118,8 @@ int main()
     }
     
     que_input(-1, -1, -1);
+    qi -= 1;
+    visited[x][y] = 1;
     printf("%d", BFS(0, x, y));
     return 0;
 }
